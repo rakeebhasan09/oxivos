@@ -6,6 +6,7 @@ export default function Home() {
             <h1 className="text-4xl font-bold text-gray-800 dark:text-white">
                 Welcome to My App
             </h1>
+            <marquee>Today is vacation day two</marquee>
         </div>
     );
 }
