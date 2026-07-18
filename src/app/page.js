@@ -7,6 +7,7 @@ export default function Home() {
                 Welcome to My App
             </h1>
             <marquee>Today is vacation day two</marquee>
+            <h2>Vacation Day Three.</h2>
         </div>
     );
 }
