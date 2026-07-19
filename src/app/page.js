@@ -8,6 +8,7 @@ export default function Home() {
             </h1>
             <marquee>Today is vacation day two</marquee>
             <h2>Vacation Day Three.</h2>
+            <h3>Vacation Day Four.</h3>
         </div>
     );
 }
