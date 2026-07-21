@@ -1,8 +1,24 @@
 "use client";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
+import { Input } from "@base-ui/react";
+import { Search, SearchIcon, ShoppingBag } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 const Navbar = () => {
+    const [open, setOpen] = useState(false);
     const navLinks = (
         <>
             <li>
@@ -40,68 +56,59 @@ const Navbar = () => {
         </>
     );
     return (
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8 ">
-            <Link href="/">
-                <span className="font-semibold">oxivos.</span>
-            </Link>
-            <nav className="hidden items-center text-sm md:flex">
-                <ul className="gap-8 flex items-center">{navLinks}</ul>
-            </nav>
-            {/* Right Side */}
-            <div
-                className="flex items-center gap-1"
-                data-tsd-source="/src/components/site-layout.tsx:25:11"
-            >
-                <button
-                    aria-label="Search"
-                    className="grid h-9 w-9 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                    data-tsd-source="/src/components/site-layout.tsx:26:13"
+        <>
+            <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8 ">
+                <Link href="/">
+                    <span className="font-semibold">oxivos.</span>
+                </Link>
+                <nav className="hidden items-center text-sm md:flex">
+                    <ul className="gap-8 flex items-center">{navLinks}</ul>
+                </nav>
+                {/* Right Side */}
+                <div
+                    className="flex items-center gap-1"
+                    data-tsd-source="/src/components/site-layout.tsx:25:11"
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-search h-4 w-4"
-                        aria-hidden="true"
-                        data-tsd-source="/src/components/site-layout.tsx:27:15"
+                    <button
+                        aria-label="Search"
+                        onClick={() => setOpen(true)}
+                        className="grid h-9 w-9 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                        data-tsd-source="/src/components/site-layout.tsx:26:13"
                     >
-                        <path d="m21 21-4.34-4.34"></path>
-                        <circle cx="11" cy="11" r="8"></circle>
-                    </svg>
-                </button>
-                <a
-                    aria-label="Cart"
-                    data-tsd-source="/src/components/site-layout.tsx:29:13"
-                    href="/cart"
-                    className="relative grid h-9 w-9 place-items-center rounded-full text-foreground transition-colors hover:bg-muted"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-shopping-bag h-4 w-4"
-                        aria-hidden="true"
-                        data-tsd-source="/src/components/site-layout.tsx:34:15"
+                        <Search size={16} />
+                    </button>
+                    <Link
+                        aria-label="Cart"
+                        data-tsd-source="/src/components/site-layout.tsx:29:13"
+                        href="/cart"
+                        className="relative grid h-9 w-9 place-items-center rounded-full text-foreground transition-colors hover:bg-muted"
                     >
-                        <path d="M16 10a4 4 0 0 1-8 0"></path>
-                        <path d="M3.103 6.034h17.794"></path>
-                        <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path>
-                    </svg>
-                </a>
+                        <ShoppingBag size={16} />
+                    </Link>
+                </div>
             </div>
-        </div>
+            <AlertDialog open={open} onOpenChange={setOpen}>
+                <AlertDialogContent>
+                    <ButtonGroup className="flex items-center gap-2 w-full">
+                        <Input
+                            className="flex-3 border border-input bg-background placeholder:text-muted-foreground outline-0 px-2 py-2"
+                            placeholder="Search..."
+                        />
+                    </ButtonGroup>
+                    <Button
+                        onClick={() => {
+                            // এখানে search logic
+                            setOpen(false); // Modal বন্ধ হবে
+                        }}
+                        className="flex-1 px-4! py-4!"
+                        variant="outline"
+                        aria-label="Search"
+                    >
+                        Search
+                    </Button>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
     );
 };
 
