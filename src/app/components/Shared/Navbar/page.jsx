@@ -12,13 +12,29 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
 import { Input } from "@base-ui/react";
-import { Search, SearchIcon, ShoppingBag } from "lucide-react";
+import {
+    Search,
+    SearchIcon,
+    ShoppingBag,
+    TextAlignJustify,
+} from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
+    const [openDrawer, setOpenDrawer] = useState(false);
     const navLinks = (
         <>
             <li>
@@ -85,8 +101,12 @@ const Navbar = () => {
                     >
                         <ShoppingBag size={16} />
                     </Link>
+                    <div className="md:*:hidden cursor-pointer">
+                        <TextAlignJustify onClick={() => setOpenDrawer(true)} />
+                    </div>
                 </div>
             </div>
+            {/* Search Modal */}
             <AlertDialog open={open} onOpenChange={setOpen}>
                 <AlertDialogContent>
                     <ButtonGroup className="flex items-center gap-2 w-full">
@@ -108,6 +128,27 @@ const Navbar = () => {
                     </Button>
                 </AlertDialogContent>
             </AlertDialog>
+
+            {/* Mobile Menu */}
+            <Drawer
+                open={openDrawer}
+                onOpenChange={setOpenDrawer}
+                swipeDirection="left"
+            >
+                <DrawerContent>
+                    <DrawerHeader>
+                        <DrawerTitle>Menu</DrawerTitle>
+                    </DrawerHeader>
+                    <div className="flex-1 p-4">
+                        <div className="size-full">
+                            <ul className="flex flex-col gap-4">{navLinks}</ul>
+                        </div>
+                    </div>
+                    <DrawerFooter>
+                        <DrawerClose render={<Button>Close</Button>} />
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
         </>
     );
 };
