@@ -141,7 +141,12 @@ const Navbar = () => {
                     </DrawerHeader>
                     <div className="flex-1 p-4">
                         <div className="size-full">
-                            <ul className="flex flex-col gap-4">{navLinks}</ul>
+                            <ul
+                                onClick={() => setOpenDrawer(false)}
+                                className="flex flex-col gap-4"
+                            >
+                                {navLinks}
+                            </ul>
                         </div>
                     </div>
                     <DrawerFooter>
