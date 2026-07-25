@@ -79,3 +79,5 @@ This project is licensed under the MIT License.
 ---
 
 ⭐ If you like this project, don't forget to give it a star!
+
+25-Jul-26 is off day. Because tommoro my practical lab examination.
