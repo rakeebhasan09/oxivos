@@ -1,4 +1,5 @@
 import Category from "./components/Home/Category";
+import Editorial from "./components/Home/Editorial";
 import Hero from "./components/Home/Hero";
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
         <>
             <Hero />
             <Category />
+            <Editorial />
         </>
     );
 }
