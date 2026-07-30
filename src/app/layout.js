@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
                 <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
                     <Navbar />
                 </header>
-                {children}
+                <div>{children}</div>
                 <footer>
                     <Footer />
                 </footer>
