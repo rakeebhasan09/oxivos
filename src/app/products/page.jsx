@@ -1,6 +1,7 @@
 "use client";
 import { categories, products } from "@/data/products";
 import React, { useMemo, useState } from "react";
+import ProductCard from "../components/cards/ProductCard";
 
 const ProductsPage = () => {
     const [category, setCategory] = useState("All");
@@ -70,6 +71,21 @@ const ProductsPage = () => {
                     </select>
                 </div>
             </div>
+
+            {filtered.length === 0 ? (
+                <div className="grid place-items-center rounded-lg border border-dashed border-border py-24 text-center">
+                    <div className="font-serif text-2xl">Nothing matches</div>
+                    <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+                        Try a different category or clear your search.
+                    </p>
+                </div>
+            ) : (
+                <div className="grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
+                    {filtered.map((p) => (
+                        <ProductCard key={p._id} product={p} />
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
