@@ -1,10 +1,12 @@
 "use client";
 import ProductCard from "@/app/components/cards/ProductCard";
+import { CartContext } from "@/context/cartContext";
 import { products } from "@/data/products";
 import { Check, Minus, Plus, Star } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import Swal from "sweetalert2";
 
 const ProductDetails = () => {
     const params = useParams();
@@ -12,6 +14,7 @@ const ProductDetails = () => {
     const [size, setSize] = useState(product?.sizes[0]);
     const [color, setColor] = useState(product?.colors[0]);
     const [qty, setQty] = useState(1);
+    const { addToCart } = useContext(CartContext);
 
     const related = products
         .filter((p) => p.category === product.category && p._id !== product._id)
@@ -151,13 +154,15 @@ const ProductDetails = () => {
                             <button
                                 disabled={!product.inStock}
                                 onClick={() => {
-                                    add(product, {
+                                    addToCart(product, {
                                         size,
                                         color,
                                         quantity: qty,
                                     });
-                                    toast.success("Added to bag", {
-                                        description: `${product.name} · ${size} · ${color}`,
+                                    Swal.fire({
+                                        title: "Added to bag",
+                                        text: `${product.name} · ${size} · ${color}`,
+                                        icon: "success",
                                     });
                                 }}
                                 className="flex-1 rounded-full bg-foreground px-8 py-3 text-sm font-medium text-background transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:hover:translate-y-0"

@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Shared/Navbar/page";
 import Footer from "./components/Shared/Footer/page";
+import CartProvider from "@/providers/cartProviders";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -25,15 +26,17 @@ export default function RootLayout({ children }) {
             lang="en"
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-            <body className="flex flex-col">
-                <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
-                    <Navbar />
-                </header>
-                <div>{children}</div>
-                <footer>
-                    <Footer />
-                </footer>
-            </body>
+            <CartProvider>
+                <body className="flex flex-col">
+                    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
+                        <Navbar />
+                    </header>
+                    <div>{children}</div>
+                    <footer>
+                        <Footer />
+                    </footer>
+                </body>
+            </CartProvider>
         </html>
     );
 }
