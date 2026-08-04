@@ -26,8 +26,8 @@ export default function RootLayout({ children }) {
             lang="en"
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-            <CartProvider>
-                <body className="flex flex-col">
+            <body className="flex flex-col">
+                <CartProvider>
                     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
                         <Navbar />
                     </header>
@@ -35,8 +35,8 @@ export default function RootLayout({ children }) {
                     <footer>
                         <Footer />
                     </footer>
-                </body>
-            </CartProvider>
+                </CartProvider>
+            </body>
         </html>
     );
 }
