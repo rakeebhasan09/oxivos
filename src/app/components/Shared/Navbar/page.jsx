@@ -36,7 +36,7 @@ import React, { useContext, useState } from "react";
 const Navbar = () => {
     const [open, setOpen] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
-    const { cart } = useContext(CartContext); // Access cart from context
+    const { items } = useContext(CartContext); // Access cart from context
     const navLinks = (
         <>
             <li>
@@ -102,9 +102,9 @@ const Navbar = () => {
                         className="relative grid h-9 w-9 place-items-center rounded-full text-foreground transition-colors hover:bg-muted"
                     >
                         <ShoppingBag size={16} />
-                        {cart.length > 0 && (
+                        {items.length > 0 && (
                             <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-foreground px-1 text-[10px] font-medium leading-none text-background">
-                                {cart.length}
+                                {items.length}
                             </span>
                         )}
                     </Link>

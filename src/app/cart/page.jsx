@@ -5,12 +5,12 @@ import Link from "next/link";
 import React, { useContext } from "react";
 
 const CartPage = () => {
-    const { cart } = useContext(CartContext);
-    const count = cart?.length || 0;
+    const { items, updateQty } = useContext(CartContext);
+    const count = items?.length || 0;
     // const shipping = subtotal > 150 || subtotal === 0 ? 0 : 12;
     // const total = subtotal + shipping;
-
-    if (cart?.length === 0) {
+    console.log(items);
+    if (items?.length === 0) {
         return (
             <div className="mx-auto grid max-w-2xl place-items-center px-5 py-32 text-center md:px-8">
                 <div className="grid h-20 w-20 place-items-center rounded-full bg-muted">
@@ -30,6 +30,7 @@ const CartPage = () => {
             </div>
         );
     }
+
     return (
         <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
             <header className="mb-10 flex items-end justify-between">
@@ -47,23 +48,79 @@ const CartPage = () => {
             </header>
             <div className="grid gap-12 lg:grid-cols-[1fr_380px]">
                 <ul className="divide-y divide-border/60">
-                    {cart.map((item) => (
+                    {items.map((item) => (
                         <li
-                            key={item._id}
+                            key={`${item?.product._id}-${item?.size}-${item?.color}`}
                             className="grid grid-cols-[96px_1fr] gap-4 py-6 md:grid-cols-[120px_1fr_auto] md:gap-6"
                         >
                             <Link
-                                href={`/products/${item._id}`}
+                                href={`/products/${item?.product._id}`}
                                 className="block aspect-4/5 overflow-hidden rounded-md bg-muted"
                             >
                                 <img
-                                    src={item?.image}
-                                    alt={item?.name}
+                                    src={item?.product.image}
+                                    alt={item?.product.name}
                                     className="h-full w-full object-cover"
                                 />
                             </Link>
 
                             {/* Start Design From Here */}
+                            <div className="min-w-0">
+                                <div className="flex items-start justify-between gap-4">
+                                    <div className="min-w-0">
+                                        <Link
+                                            href={`/products/${item?.product._id}`}
+                                            className="block truncate text-base font-medium hover:underline"
+                                        >
+                                            {item?.product.name}
+                                        </Link>
+                                        <div className="mt-1 text-xs text-muted-foreground">
+                                            {item?.product.category} ·{" "}
+                                            {item?.color} · {item?.size}
+                                        </div>
+                                    </div>
+                                    <div className="text-sm font-medium md:hidden">
+                                        ${item?.product.price * item?.quantity}
+                                    </div>
+                                </div>
+                                <div className="mt-4 flex items-center gap-4">
+                                    <div className="flex items-center rounded-full border border-border">
+                                        <button
+                                            onClick={() =>
+                                                updateQty(
+                                                    item?.product._id,
+                                                    item?.size,
+                                                    item?.color,
+                                                    item?.quantity - 1,
+                                                )
+                                            }
+                                            aria-label="Decrease"
+                                            className="grid h-9 w-9 place-items-center text-muted-foreground hover:text-foreground"
+                                        >
+                                            <Minus className="h-3.5 w-3.5" />
+                                        </button>
+                                        <span className="w-7 text-center text-sm">
+                                            {item?.quantity}
+                                        </span>
+                                        <button
+                                            onClick={() =>
+                                                updateQty(
+                                                    item?.product._id,
+                                                    item?.size,
+                                                    item?.color,
+                                                    item?.quantity + 1,
+                                                )
+                                            }
+                                            aria-label="Increase"
+                                            className="grid h-9 w-9 place-items-center text-muted-foreground hover:text-foreground"
+                                        >
+                                            <Plus className="h-3.5 w-3.5" />
+                                        </button>
+                                    </div>
+
+                                    {/* Next From Here */}
+                                </div>
+                            </div>
                         </li>
                     ))}
                 </ul>

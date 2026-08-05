@@ -14,7 +14,7 @@ const ProductDetails = () => {
     const [size, setSize] = useState(product?.sizes[0]);
     const [color, setColor] = useState(product?.colors[0]);
     const [qty, setQty] = useState(1);
-    const { addToCart } = useContext(CartContext);
+    const { add } = useContext(CartContext);
 
     const related = products
         .filter((p) => p.category === product.category && p._id !== product._id)
@@ -154,7 +154,7 @@ const ProductDetails = () => {
                             <button
                                 disabled={!product.inStock}
                                 onClick={() => {
-                                    addToCart(product, {
+                                    add(product, {
                                         size,
                                         color,
                                         quantity: qty,
