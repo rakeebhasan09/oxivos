@@ -5,10 +5,10 @@ import Link from "next/link";
 import React, { useContext } from "react";
 
 const CartPage = () => {
-    const { items, updateQty } = useContext(CartContext);
+    const { items, updateQty, subtotal, remove } = useContext(CartContext);
     const count = items?.length || 0;
-    // const shipping = subtotal > 150 || subtotal === 0 ? 0 : 12;
-    // const total = subtotal + shipping;
+    const shipping = subtotal > 150 || subtotal === 0 ? 0 : 12;
+    const total = subtotal + shipping;
     console.log(items);
     if (items?.length === 0) {
         return (
@@ -118,12 +118,58 @@ const CartPage = () => {
                                         </button>
                                     </div>
 
-                                    {/* Next From Here */}
+                                    <button
+                                        onClick={() =>
+                                            remove(
+                                                item.product._id,
+                                                item.size,
+                                                item.color,
+                                            )
+                                        }
+                                        className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-destructive"
+                                    >
+                                        <Trash2 className="h-3.5 w-3.5" />
+                                        Remove
+                                    </button>
                                 </div>
+                            </div>
+                            {/* Next From Here */}
+                            <div className="hidden text-right text-sm font-medium md:block">
+                                ${item.product.price * item.quantity}
                             </div>
                         </li>
                     ))}
                 </ul>
+                <aside className="h-fit rounded-lg border border-border/60 bg-muted/30 p-6">
+                    <h2 className="font-serif text-2xl">Order summary</h2>
+                    <dl className="mt-6 space-y-3 text-sm">
+                        <div className="flex justify-between">
+                            <dt className="text-muted-foreground">Subtotal</dt>
+                            <dd>${subtotal.toFixed(2)}</dd>
+                        </div>
+                        <div className="flex justify-between">
+                            <dt className="text-muted-foreground">Shipping</dt>
+                            <dd>
+                                {shipping === 0
+                                    ? "Free"
+                                    : `$${shipping.toFixed(2)}`}
+                            </dd>
+                        </div>
+                        <div className="mt-4 flex justify-between border-t border-border/60 pt-4 text-base font-medium">
+                            <dt>Total</dt>
+                            <dd>${total.toFixed(2)}</dd>
+                        </div>
+                    </dl>
+                    <button className="mt-6 w-full rounded-full bg-foreground py-3 text-sm font-medium text-background transition-transform hover:-translate-y-0.5">
+                        Checkout
+                    </button>
+                    <Link
+                        href="/products"
+                        className="mt-3 block text-center text-xs text-muted-foreground hover:text-foreground"
+                    >
+                        Continue shopping
+                    </Link>
+                </aside>
             </div>
         </div>
     );
